@@ -32,7 +32,11 @@ fn black_box(input: Vec<String>, exercise: i8) {
 
     for line in input {
         // Last char is always number 1-9
-        let value: u32 = line.chars().nth(line.len()-1).unwrap().to_digit(10).unwrap();
+        let value: u32 = line.chars()
+                             .nth(line.len()-1)
+                             .unwrap()
+                             .to_digit(10)
+                             .unwrap();
         
         // Only 3 possible commands, each starting with different char
         match line.chars().nth(0).unwrap() {
