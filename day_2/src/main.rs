@@ -10,20 +10,6 @@ fn main() {
     black_box(input, 1);
     black_box(inputcopy, 2);   
 }
-/**
- * Still reads files, Praise Jebus. Now returns Vec<String>.
- **/
-fn read_input() -> Vec<String> {
-    let filename = "input";
-    let file = File::open(filename).unwrap();
-    let reader = BufReader::new(file);
-    let mut input: Vec<String> = Vec::new();
-    
-    for line in reader.lines().enumerate() {
-        input.push(line.1.unwrap());
-    }
-    input
-}
 
 fn black_box(input: Vec<String>, exercise: i8) {
     let mut x = 0;
@@ -38,15 +24,11 @@ fn black_box(input: Vec<String>, exercise: i8) {
                              .to_digit(10)
                              .unwrap();
         
-        // Only 3 possible commands, each starting with different char
+        // Only 3 possible commands, each starting with different char.
         match line.chars().nth(0).unwrap() {
             'f' => {
-                if exercise == 1 {
-                    x+=value
-                } else {
-                    x+=value;
-                    y+=aim*value;
-                }
+                x+=value;
+                if exercise == 2 { y+=aim*value; }  
             },
             'u' => aim-=value,
             'd' => aim+=value,
@@ -61,4 +43,18 @@ fn black_box(input: Vec<String>, exercise: i8) {
         println!("The sub has moved {} units forward and {} units deep", x, y);
         println!("Answer 2: {}", x*y);
     }
+}
+/**
+ * Still reads files, Praise Jebus. Now returns Vec<String>.
+ **/
+fn read_input() -> Vec<String> {
+    let filename = "./input";
+    let file = File::open(filename).unwrap();
+    let reader = BufReader::new(file);
+    let mut input: Vec<String> = Vec::new();
+    
+    for line in reader.lines().enumerate() {
+        input.push(line.1.unwrap());
+    }
+    input
 }
